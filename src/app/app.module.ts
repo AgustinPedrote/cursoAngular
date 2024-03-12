@@ -3,6 +3,8 @@
 // Importaciones de modulos y componentes.
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http'
+
 import { AppComponent } from './app.component';
 import { MenuComponent } from './menu/menu.component';
 import { ListadoComponent } from './views/listado/listado.component';
@@ -26,7 +28,8 @@ import { AcercaDeNosotrosComponent } from './views/acerca-de-nosotros/acerca-de-
   //directivas y pipes que son utilizados por los componentes declarados en este módulo
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [], // Servicios (funcionalidades extra)
   bootstrap: [AppComponent] // Solo el modulo raiz almacenará esta propiedad.

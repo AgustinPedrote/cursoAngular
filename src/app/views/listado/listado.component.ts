@@ -1,6 +1,6 @@
 // Importaciones:
 import { Component, OnInit } from '@angular/core';
-import { Entrada } from 'src/app/shared/interfaces/interfaces';
+import { EntradaService } from 'src/app/shared/services/entrada.service';
 
 @Component({
   selector: 'app-listado', // Selector que se utilizará en las plantillas HTML para identificar este componente
@@ -10,28 +10,35 @@ import { Entrada } from 'src/app/shared/interfaces/interfaces';
 // Clase del componente que implementa la interfaz OnInit
 export class ListadoComponent implements OnInit {
   // Arreglo de entradas
-  public listadoEntradas: Entrada[];
+  public listadoEntradas: any;
 
-  constructor() {
-    // Inicializa el arreglo de entradas con algunos datos de ejemplo
-    this.listadoEntradas = [
-      {
-        titulo: 'Introducción a Angular',
-        resumen: 'En esta lección realizaremos una pequeña introducción'
-      },
-      {
-        titulo: 'Typescript como lenguaje para Angular',
-        resumen: 'Breve recorrido por el lenguaje de Typescript'
-      },
-      {
-        titulo: 'Componentes en Angular',
-        resumen: 'Aprenderemos a usuar los componentes en Angular'
-      }
-    ];
+  // Constructor del componente, inyecta el servicio de Entrada
+  constructor(private entradaService: EntradaService) {
+
   }
 
   // Método que se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
+    this.recuperarEntradas();
+  }
+
+  // Método privado para recuperar las entradas desde el servicio
+  private recuperarEntradas(): void {
+    // Se suscribe al Observable devuelto por el método recuperarEntradas del servicio
+    this.entradaService.recuperarEntradas().subscribe(
+      // En caso de éxito
+      (data) => {
+        this.listadoEntradas = data;
+      },
+      // En caso de error
+      (error) => {
+
+      },
+      // En caso de completado
+      () => {
+
+      }
+    )
   }
 
   // Método que muestra una alerta con el título de la entrada seleccionada
