@@ -9,10 +9,30 @@ import { Component, OnInit } from '@angular/core';
 // Clase del componente que implementa la interfaz OnInit
 export class MenuComponent implements OnInit {
 
-  constructor() { }
+  public miToken: number;
+  public nombreUsuario: string | null;
 
-  // Método que se ejecuta cuando el componente se inicializa
+  constructor() {
+    this.miToken = 0;
+    this.nombreUsuario = "";
+  }
+
   ngOnInit(): void {
+
+    if (localStorage.getItem('miTokenPersonal')) {
+      this.miToken = +localStorage.getItem('miTokenPersonal')!;
+    }
+
+    if (localStorage.getItem('miTokenPersonal')) {
+      this.nombreUsuario = localStorage.getItem('nombreUsuario');
+    }
+
+  }
+
+  public logout(): void {
+    if (localStorage.getItem('miTokenPersonal')) {
+      localStorage.removeItem('miTokenPersonal');
+    }
   }
 
 }

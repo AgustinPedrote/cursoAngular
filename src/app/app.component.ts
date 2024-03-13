@@ -7,5 +7,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css'] // Ubicación del archivo CSS
 })
 export class AppComponent {
-  title = 'cursoAngularOW'; // Propiedad del componente que almacena el título
+  title = 'cursoAngularOpenWebinar'; // Propiedad del componente que almacena el título
 }

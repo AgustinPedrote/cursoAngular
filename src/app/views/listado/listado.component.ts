@@ -1,49 +1,43 @@
-// Importaciones:
 import { Component, OnInit } from '@angular/core';
+import { Entrada } from 'src/app/shared/interfaces/interfaces';
+
 import { EntradaService } from 'src/app/shared/services/entrada.service';
 
 @Component({
-  selector: 'app-listado', // Selector que se utilizará en las plantillas HTML para identificar este componente
-  templateUrl: './listado.component.html',  // Ubicación del archivo HTML que contiene la plantilla del componente
-  styleUrls: ['./listado.component.css'] // Ubicación del archivo CSS que contiene los estilos del componente
+  selector: 'app-listado',
+  templateUrl: './listado.component.html',
+  styleUrls: ['./listado.component.css']
 })
-// Clase del componente que implementa la interfaz OnInit
 export class ListadoComponent implements OnInit {
-  // Arreglo de entradas
-  public listadoEntradas: any;
+  // Atibutos
+  public listadoEntradas: Entrada[];
 
-  // Constructor del componente, inyecta el servicio de Entrada
   constructor(private entradaService: EntradaService) {
-
+    this.listadoEntradas = [ ];
   }
 
-  // Método que se ejecuta cuando el componente se inicializa
   ngOnInit(): void {
-    this.recuperarEntradas();
+
+    this.listarEntradas();
   }
 
-  // Método privado para recuperar las entradas desde el servicio
-  private recuperarEntradas(): void {
-    // Se suscribe al Observable devuelto por el método recuperarEntradas del servicio
+  private listarEntradas(): void {
+
     this.entradaService.recuperarEntradas().subscribe(
-      // En caso de éxito
-      (data) => {
-        this.listadoEntradas = data;
+      (entradas: Entrada[]) => {
+        this.listadoEntradas = entradas;
       },
-      // En caso de error
-      (error) => {
-
+      (error: Error) => {
+        console.log('Error: ', error);
       },
-      // En caso de completado
       () => {
-
+        console.log('Petición realizada correctamente');
       }
-    )
+    );
   }
 
-  // Método que muestra una alerta con el título de la entrada seleccionada
   public mostrarTitulo(titulo: string): void {
-    alert(`Entrada seleccionada: ${titulo}.`);
+    alert(`Entrada seleccionada: ${ titulo }.`);
   }
 
 }
